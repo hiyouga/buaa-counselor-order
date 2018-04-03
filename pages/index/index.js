@@ -16,7 +16,9 @@ Page({
     })
   },
   clickMe: function() {
-    this.setData({message: 'Hello Wxml!'})
+    wx.navigateTo({
+      url: '../order/order',
+    })
   },
   onLoad: function () {
     if (app.globalData.userInfo) {
