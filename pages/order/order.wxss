@@ -1,2 +1,2 @@
 /* pages/order/order.wxss */
-@import '../../template/calendar/index.wxss';
+@import '../../template/datepicker/index.wxss';

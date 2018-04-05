@@ -104,7 +104,7 @@ const conf = {
 	 * @param {number} curMonth
 	 * @param {number} curDate
 	 */
-	init(curYear = 2018, curMonth = 1, curDate = 1) {
+	init(curYear, curMonth, curDate) {
 		const self = _getCurrentPage();
 		if (!curYear || !curMonth || !curDate) {
 			const date = new Date();
@@ -216,6 +216,9 @@ const conf = {
 				'datepicker.selectedDay': [ days[ idx ] ],
 			});
 		}
+    wx.navigateTo({
+      url: '../list/list?date=' + selectedValue,
+    })
 	},
 	/**
 	 * 关闭日历选择器

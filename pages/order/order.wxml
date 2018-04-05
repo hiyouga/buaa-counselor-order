@@ -1,3 +1,5 @@
 <!--order.wxml-->
-<import src="../../template/calendar/index.wxml"/>
-<template is="calendar" data="{{...calendar}}" />
+<import src="../../template/datepicker/index.wxml"/>
+<view class="datepicker-box">
+	<template is="datepicker" data="{{...datepicker}}" />
+</view>

@@ -1,0 +1,7 @@
+<!--list.wxml-->
+<view class="container">
+  <text class="user-motto">{{motto}}</text>
+  <block wx:key="" wx:for="{{orders}}" wx:for-item="order">
+    <text class="order-item">{{order.name}} | {{order.start_at}} | {{order.location}} | {{order.now_member}}/{{order.max_member}}</text>
+  </block>
+</view>
