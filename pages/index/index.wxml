@@ -9,6 +9,6 @@
   </view>
   <view class="usermotto">
     <text class="user-motto">{{motto}}</text>
-    <button bindtap="clickMe">预约辅导员</button>
+    <button bindtap="clickMe">导员有约</button>
   </view>
 </view>

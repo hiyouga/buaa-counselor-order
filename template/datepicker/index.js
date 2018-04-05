@@ -216,6 +216,7 @@ const conf = {
 				'datepicker.selectedDay': [ days[ idx ] ],
 			});
 		}
+    //跳转至时间选择页面
     wx.navigateTo({
       url: '../list/list?date=' + selectedValue,
     })

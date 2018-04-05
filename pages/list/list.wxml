@@ -1,7 +1,26 @@
 <!--list.wxml-->
-<view class="container">
-  <text class="user-motto">{{motto}}</text>
+<view class="table">
+  <view class="tr">
+    <view class="header">{{pagedate}}</view>
+  </view>
+  <view class="tr bg-g">
+    <view class="th">导员</view>
+    <view class="th">时间</view>
+    <view class="th">地点</view>
+    <view class="th">报名人数</view>
+  </view>
   <block wx:key="" wx:for="{{orders}}" wx:for-item="order">
-    <text class="order-item">{{order.name}} | {{order.start_at}} | {{order.location}} | {{order.now_member}}/{{order.max_member}}</text>
+    <view data-idx="{{order.sid}}" class="tr bg-g" wx:if="{{index % 2 == 0}}" bindtap="confirm">
+      <view class="td">{{order.name}}</view>
+      <view class="td">{{order.start_at}}~{{order.end_at}}</view>
+      <view class="td">{{order.location}}</view>
+      <view class="td">{{order.now_member}}/{{order.max_member}}</view>
+    </view>
+    <view data-idx="{{order.sid}}" class="tr" wx:else bindtap="confirm">
+      <view class="td">{{order.name}}</view>
+      <view class="td">{{order.start_at}}~{{order.end_at}}</view>
+      <view class="td">{{order.location}}</view>
+      <view class="td">{{order.now_member}}/{{order.max_member}}</view>
+    </view>
   </block>
 </view>
