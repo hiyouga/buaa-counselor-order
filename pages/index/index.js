@@ -9,19 +9,33 @@ Page({
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
-  //事件处理函数
-  /*bindViewTap: function() {
-    wx.navigateTo({
-      url: '../logs/logs'
-    })
-  },*/
   clickMe: function() {
     wx.navigateTo({
       url: '../order/order',
     })
   },
+  force_real: function () {
+    wx.request({
+      url: 'https://buaa.hiyouga.top/user.php',
+      data: {
+        type: 'checkReal',
+        userid: app.globalData.userId,
+      },
+      method: 'GET',
+      dataType: 'json',
+      success: res => {
+        console.log(res)
+        if (res.data.is_realname == 0) {
+          wx.navigateTo({
+            url: '../user/user?type=force_real',
+          })
+        }
+      }
+    })
+  },
   onLoad: function () {
-    if (app.globalData.userInfo) {
+    this.force_real()
+    /*if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
         hasUserInfo: true
@@ -46,14 +60,6 @@ Page({
           })
         }
       })
-    }
-  },
-  getUserInfo: function(e) {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
-    })
+    }*/
   }
 })

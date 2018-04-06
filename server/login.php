@@ -1,5 +1,6 @@
 <?php
 error_reporting(0);
+header('Content-type: application/json');
 header("Access-Control-Allow-Origin: *");
 define('APPID', '');
 define('APPSEC', '');
@@ -18,4 +19,5 @@ curl_setopt($ch, CURLOPT_TIMEOUT_MS, 5000);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 $res = json_decode(curl_exec($ch), 1);
 curl_close($ch);
-var_dump($res);
+unset($res['session_key']);//Do not return risk information
+echo json_encode($res);
