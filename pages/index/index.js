@@ -10,11 +10,11 @@ Page({
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
   //事件处理函数
-  bindViewTap: function() {
+  /*bindViewTap: function() {
     wx.navigateTo({
       url: '../logs/logs'
     })
-  },
+  },*/
   clickMe: function() {
     wx.navigateTo({
       url: '../order/order',

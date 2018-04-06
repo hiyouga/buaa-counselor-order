@@ -14,7 +14,10 @@ Page({
   onLoad: function (options) {
     var _this = this
     wx.request({
-      url: 'https://buaa.hiyouga.top/list.php?date=' + options.date,
+      url: 'https://buaa.hiyouga.top/list.php',
+      data: {
+        date: options.date
+      },
       method: 'GET',
       dataType: 'json',
       success: function(res) {
@@ -93,12 +96,18 @@ Page({
         wx.showModal({
           title: '提示',
           content: text,
-          success: function (status) {
-            if (status.confirm) {
+          success: function (res) {
+            if (res.confirm) {
               //console.log('用户点击确认')
               //_this.order(sid)
-            } else if (status.cancel) {
+            } else if (res.cancel) {
               //console.log('用户点击取消')
+              /*wx.showToast({
+                title: '',
+                icon: 'success',
+                duration: 800,
+                mask: true
+              })*/
             }
           }
         })
