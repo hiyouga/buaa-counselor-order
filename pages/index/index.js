@@ -1,65 +1,42 @@
 //index.js
-//获取应用实例
 const app = getApp()
 
 Page({
   data: {
-    motto: 'Hello World',
-    userInfo: {},
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    navbar: ['导员有约', '院长下午茶', '导师预约'],
+    navurl: ['../order/order', '../null/null', '../null/null'],
   },
-  clickMe: function() {
+  navbarTap: function (e) {
     wx.navigateTo({
-      url: '../order/order',
+      url: e.currentTarget.dataset.href
     })
   },
-  force_real: function () {
+  force_real: function (userid) {
     wx.request({
       url: 'https://buaa.hiyouga.top/user.php',
       data: {
         type: 'checkReal',
-        userid: app.globalData.userId,
+        userid: userid,
       },
       method: 'GET',
       dataType: 'json',
       success: res => {
-        console.log(res)
+        //console.log(res)
         if (res.data.is_realname == 0) {
           wx.navigateTo({
-            url: '../user/user?type=force_real',
+            url: '../user/user?type=force_real&uid=' + userid,
           })
         }
       }
     })
   },
   onLoad: function () {
-    this.force_real()
-    /*if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-    } else if (this.data.canIUse){
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
-      }
+    if (app.globalData.userId) {
+      this.force_real(app.globalData.userId)
     } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-        }
-      })
-    }*/
+      app.userIdReadyCallback = res => {
+        this.force_real(app.globalData.userId)
+      }
+    }
   }
 })

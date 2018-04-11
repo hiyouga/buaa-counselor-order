@@ -1,0 +1,20 @@
+<!-- apply.wxml -->
+<view class="table">
+  <view class="tr bg-g">
+    <view class="th">导员</view>
+    <view class="th">时间</view>
+    <view class="th">地点</view>
+  </view>
+  <block wx:key="" wx:for="{{orders}}" wx:for-item="order">
+    <view data-idx="{{order.sid}}" class="tr bg-g" wx:if="{{index % 2 == 0}}" bindtap="confirm">
+      <view class="td">{{order.name}}</view>
+      <view class="td">{{order.start_at}}~{{order.end_at}}</view>
+      <view class="td">{{order.location}}</view>
+    </view>
+    <view data-idx="{{order.sid}}" class="tr" wx:else bindtap="confirm">
+      <view class="td">{{order.name}}</view>
+      <view class="td">{{order.start_at}}~{{order.end_at}}</view>
+      <view class="td">{{order.location}}</view>
+    </view>
+  </block>
+</view>

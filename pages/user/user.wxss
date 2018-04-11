@@ -1,1 +1,23 @@
 /* pages/user/user.wxss */
+.cell_input {
+  margin-bottom: 20rpx;
+  border-bottom: 1px #999 solid;
+}
+
+.userinfo {
+  display: flex;
+  flex-direction: row;
+}
+
+.userinfo-avatar {
+  width: 180rpx;
+  height: 180rpx;
+  display: inline-block;
+  border-radius: 100%;
+}
+
+.userinfo-stuname {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}

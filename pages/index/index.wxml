@@ -1,14 +1,6 @@
 <!--index.wxml-->
 <view class="container">
-  <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
-  </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
-    <button bindtap="clickMe">导员有约</button>
+  <view class="navbar">
+    <button class="navbtn" wx:for="{{navbar}}" data-index="{{index}}" data-href="{{navurl[index]}}" wx:key="unique" bindtap="navbarTap">{{item}}</button>
   </view>
 </view>

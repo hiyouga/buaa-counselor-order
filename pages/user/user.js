@@ -1,66 +1,87 @@
 // pages/user/user.js
+const app = getApp()
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-  
+    hideModalput: true,
+    input_status: '',
+    userInfo: {},    
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    if (options.type == 'force_real') {
+      this.setData({
+        hideModalput: false
+      })
+    }
+    if (!options.uid || options.uid == app.globalData.userId) {
+      this.setData({
+        userInfo: app.globalData.userInfo
+      })
+      console.log('mine')
+    }
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
+  update_info: function () {
+    this.setData({
+      hideModalput: !this.data.hideModalput
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  
+  confirm_info: function () {
+    if (this.data.userInfo.class_id == '' || this.data.userInfo.stu_id == '' || this.data.userInfo.stu_name == '') {
+      this.setData({
+        input_status: '输入框不能留空！'
+      })
+    } else {
+      wx.request({
+        url: 'https://buaa.hiyouga.top/user.php',
+        data: {
+          type: 'updateReal',
+          userid: app.globalData.userId,
+          class_id: this.data.userInfo.class_id,
+          stu_id: this.data.userInfo.stu_id,
+          stu_name: this.data.userInfo.stu_name
+        },
+        method: 'GET',
+        dataType: 'json',
+        success: res => {
+          if (res.data.status == 'success') {
+            wx.setStorage({
+              key: 'userInfo',
+              data: this.data.userInfo
+            })
+            this.setData({
+              input_status: '',
+              hideModalput: true
+            })
+          } else {
+            this.setData({
+              input_status: '提交出错，请重试！'
+            })
+          }
+        }
+      })
+    }
   },
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
+  cancel_info: function () {
+    this.setData({
+      input_status: '',
+      hideModalput: true
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
+  get_input: function (e) {
+    this.setData({
+      ['userInfo.' + e.currentTarget.dataset.name]: e.detail.value
+    })
   }
 })

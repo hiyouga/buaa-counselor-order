@@ -1,13 +1,24 @@
 //app.js
+import md5 from 'utils/md5.js'
 App({
   onLaunch: function () {
     wx.getStorage({
       key: 'openid',
       success: res => {
-        //console.log(res.data)
-        //this.globalData.openId = res.data
-        this.globalData.userId = wx.getStorageSync('userid')
-        this.globalData.userInfo = wx.getStorageSync('userinfo')
+        this.globalData.openId = res.data
+        this.globalData.userId = wx.getStorageSync('userId')
+        wx.getStorage({
+          key: 'userInfo',
+          success: res => {
+            this.globalData.userInfo = res.data
+          },
+          fail: res => {
+            this.getUserInfo(this.globalData.userId)
+          }
+        })
+        if (this.userIdReadyCallback) {
+          this.userIdReadyCallback(this.globalData.userId)
+        }
         wx.request({
           url: 'https://buaa.hiyouga.top/user.php',
           data: {
@@ -20,13 +31,13 @@ App({
             if (cdata.data.status != 'success') {
               console.log('Update Time failed!')
             } else {
-              console.log('Updated')
+              console.log('Time Updated')
             }
           }
         })
       },
       fail: res => {
-        console.log(res.errMsg)
+        //console.log(res.errMsg)
         this.doLogin()
       }
     })
@@ -51,7 +62,7 @@ App({
                   key: "openid",
                   data: cdata.data.openid
                 })
-                //this.globalData.openId = cdata.data.openid
+                this.globalData.openId = cdata.data.openid
                 this.getUserId(cdata.data.openid)
               }
             }
@@ -73,13 +84,19 @@ App({
       dataType: 'json',
       success: res => {
         wx.setStorage({
-          key: "userid",
-          data: res.data.userid
+          key: "userId",
+          data: res.data.uid
         })
-        this.globalData.userId = res.data.userid
-        if (res.data.new_user) {
-          this.getUserInfo(res.data.userid)
+        wx.setStorage({
+          key: 'unique_key',
+          data: res.data.unique_key
+        })
+        this.globalData.userId = res.data.uid
+        this.globalData.unique_key = res.data.unique_key
+        if (this.userIdReadyCallback) {
+          this.userIdReadyCallback(this.globalData.userId)
         }
+        this.getUserInfo(res.data.uid)
       }
     })
   },
@@ -88,30 +105,31 @@ App({
       lang: 'en',
       timeout: 5000,
       success: res => {
-        //console.log(res.userInfo)
         this.globalData.userInfo = res.userInfo
-        wx.setStorage({
-          key: "userinfo",
-          data: res.userInfo
-        })
         wx.request({
           url: 'https://buaa.hiyouga.top/user.php',
           data: {
-            type: 'updateUserInfo',
-            userid: userid,
-            nickname: res.userInfo.nickName,
-            avatar: res.userInfo.avatarUrl
+            type: 'getReal',
+            userid: userid
           },
           method: 'GET',
           dataType: 'json',
           success: res => {
-            if (res.data.status != 'success') {
-              console.log('Update Userinfo failed!')
+            if (res.data.is_realname != '0') {
+              this.globalData.userInfo = Object.assign(this.globalData.userInfo, res.data);
             }
+            wx.setStorage({
+              key: "userInfo",
+              data: this.globalData.userInfo
+            })
           }
         })
       }
     })
+  },
+  makeSign: function (str) {
+    var encrypted = md5(str);
+    return encrypted;
   },
   globalData: {
     userId: null,

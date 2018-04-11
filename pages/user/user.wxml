@@ -1,2 +1,25 @@
-<!--pages/user/user.wxml-->
-<text>pages/user/user.wxml</text>
+<!--user.wxml-->
+<view class="container">
+  <view class="userinfo">
+    <view class="flex-item">
+      <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+    </view>
+    <view class="flex-item">
+      <text class="userinfo-stuname">{{userInfo.stu_name}}</text>
+    </view>
+  </view>
+  <button type="primary" bindtap="update_info">修改个人资料</button>
+</view>
+
+<modal hidden="{{hideModalput}}" title="修改实名信息" confirm-text="提交" cancel-text="取消" bindcancel="cancel_info" bindconfirm="confirm_info">
+  <view class="cell_input">
+    <input data-name="class_id" type="number" placeholder="请输入班号" bindinput="get_input" maxlength="6" />
+  </view>
+  <view class="cell_input">
+    <input data-name="stu_id" type="number" placeholder="请输入学号" bindinput="get_input" maxlength="8" />
+  </view>
+  <view class="cell_input">
+    <input data-name="stu_name" type="text" placeholder="请输入真实姓名" bindinput="get_input" maxlength="8" />
+  </view>
+  <view class="warning">{{input_status}}</view>
+</modal>
