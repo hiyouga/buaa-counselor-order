@@ -64,7 +64,7 @@ Page({
       data: {
         uid: app.globalData.userId,
         sid: sid,
-        sign: 0
+        sign: app.makeSign(app.globalData.unique_key + String(Date.parse(new Date()) / 1000))
       },
       method: 'GET',
       dataType: 'json',

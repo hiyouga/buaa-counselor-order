@@ -7,6 +7,7 @@ App({
       success: res => {
         this.globalData.openId = res.data
         this.globalData.userId = wx.getStorageSync('userId')
+        this.globalData.unique_key = wx.getStorageSync('unique_key')
         wx.getStorage({
           key: 'userInfo',
           success: res => {

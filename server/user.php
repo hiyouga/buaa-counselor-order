@@ -16,14 +16,18 @@ if ($_GET['type'] == 'getUserId') {
 	$data = mysqli_fetch_assoc($res);
 	mysqli_free_result($res);
 } elseif ($_GET['type'] == 'updateReal') {
-	$sql = "UPDATE user_info SET is_realname = 1, class_id = '"
-	. $_GET['class_id'] . "', stu_id = '"
-	. $_GET['stu_id'] . "', stu_name = '"
-	. $_GET['stu_name'] . "' WHERE uid = " . $_GET['userid'];
-	mysqli_query($link, $sql);
-	$data = array('status' => 'success');
+	if (strcmp(md5(getKey($link, $_GET['uid']) . time()), $_GET['sign'])) {
+		$data = array('status' => 'denied');
+	} else {
+		$sql = "UPDATE user_info SET is_realname = 1, class_id = '"
+		. $_GET['class_id'] . "', stu_id = '"
+		. $_GET['stu_id'] . "', stu_name = '"
+		. $_GET['stu_name'] . "' WHERE uid = " . $_GET['userid'];
+		mysqli_query($link, $sql);
+		$data = array('status' => 'success');
+	}
 } elseif ($_GET['type'] == 'getReal') {
-	$sql = "SELECT is_realname, class_id, stu_id, stu_name FROM user_info WHERE uid = " . $_GET['userid'];
+	$sql = "SELECT is_realname, class_id, stu_id, stu_name, completed_orders, all_orders FROM user_info WHERE uid = " . $_GET['userid'];
 	$res = mysqli_query($link, $sql);
 	$data = mysqli_fetch_assoc($res);
 	mysqli_free_result($res);
@@ -33,6 +37,14 @@ if ($_GET['type'] == 'getUserId') {
 mysqli_close($link);
 echo json_encode($data);
 exit;
+
+function getKey ($link, $uid) {
+	$sql = "SELECT unique_key FROM user_info WHERE uid = " . $uid;
+	$res = mysqli_query($link, $sql);
+	$row = mysqli_fetch_assoc($res);
+	mysqli_free_result($res);
+	return $row['unique_key'];
+}
 
 function getUserInfo ($link, $openid, $is_new) {
 	if ($is_new > 1) { //avoid recursive function error

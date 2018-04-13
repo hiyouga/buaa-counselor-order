@@ -3,18 +3,31 @@ error_reporting(0);
 header('Content-type: application/json');
 require_once 'database.php';
 $data = array();
-if (isfree($link, $_GET['sid']) && !isrepeat($link, $_GET['uid'], $_GET['sid'])) {
-	$currentTime = date('Y-m-d H:i:s', time());
-	$sql = "INSERT INTO orderform (uid, sid, launch_time) VALUES ('".$_GET['uid']."', '".$_GET['sid']."', '$currentTime')";
-	mysqli_query($link, $sql);
-	add_member($link, $_GET['sid']);
-	$data['status'] = 'success';
+
+if (strcmp(md5(getKey($link, $_GET['uid']) . time()), $_GET['sign'])) {
+	$data['status'] = 'denied';
 } else {
-	$data['status'] = 'failed';
+	if (isfree($link, $_GET['sid']) && !isrepeat($link, $_GET['uid'], $_GET['sid'])) {
+		$currentTime = date('Y-m-d H:i:s', time());
+		$sql = "INSERT INTO orderform (uid, sid, launch_time) VALUES ('".$_GET['uid']."', '".$_GET['sid']."', '$currentTime')";
+		mysqli_query($link, $sql);
+		add_member($link, $_GET['sid']);
+		$data['status'] = 'success';
+	} else {
+		$data['status'] = 'failed';
+	}
 }
 mysqli_close($link);
 echo json_encode($data);
 exit;
+
+function getKey ($link, $uid) {
+	$sql = "SELECT unique_key FROM user_info WHERE uid = " . $uid;
+	$res = mysqli_query($link, $sql);
+	$row = mysqli_fetch_assoc($res);
+	mysqli_free_result($res);
+	return $row['unique_key'];
+}
 
 function isfree ($link, $sid) {
 	$sql = "SELECT now_member, max_member FROM schedule WHERE sid = " . $sid;

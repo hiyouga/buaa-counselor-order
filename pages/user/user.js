@@ -48,7 +48,8 @@ Page({
           userid: app.globalData.userId,
           class_id: this.data.userInfo.class_id,
           stu_id: this.data.userInfo.stu_id,
-          stu_name: this.data.userInfo.stu_name
+          stu_name: this.data.userInfo.stu_name,
+          sign: app.makeSign(app.globalData.unique_key + String(Date.parse(new Date()) / 1000))
         },
         method: 'GET',
         dataType: 'json',

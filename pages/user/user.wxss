@@ -1,4 +1,10 @@
 /* pages/user/user.wxss */
+
+.main {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .cell_input {
   margin-bottom: 20rpx;
   border-bottom: 1px #999 solid;
@@ -6,7 +12,34 @@
 
 .userinfo {
   display: flex;
+  flex-wrap: wrap;
   flex-direction: row;
+  width: 100%;
+}
+
+.flex-row {
+  display: flex;
+  width: 100%;
+  margin: 2% 0 3% 0;
+  justify-content: center;
+}
+
+.flex-col {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.avatar {
+  width: 40%;
+  justify-content: flex-end;
+}
+
+.meta {
+  width: 60%;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: center;
 }
 
 .userinfo-avatar {
@@ -18,6 +51,17 @@
 
 .userinfo-stuname {
   display: flex;
-  align-items: center;
   height: 100%;
+  font-size: 55rpx;
+  justify-content: center;
+}
+
+.userinfo-stuid {
+  justify-content: center;
+  font-size: 25rpx;
+  background: #bc0;
+  color: #fff;
+  padding: 8rpx;
+  margin: 2%;
+  border-radius: 10%;
 }
