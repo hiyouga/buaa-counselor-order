@@ -1,4 +1,3 @@
-
 /**
 * 左滑
 * @param {object} e 事件对象
@@ -128,13 +127,13 @@ const conf = {
 	 * @param {object} e  事件对象
 	 */
 	showDatepicker(e) {
-		const value = e.detail.value;
+		/*const value = e.detail.value;
 		if (value && typeof value === 'string') {
 			const tmp = value.split('-');
 			conf.init(+tmp[ 0 ], +tmp[ 1 ], +tmp[ 2 ]);
-		} else {
+		} else {*/
 			conf.init();
-		}
+		//}
 	},
 	/**
 	 * 当输入日期时
@@ -266,6 +265,7 @@ export default (config = {}) => {
 			placeholder: config.placeholder || '请选择日期',
 		}
 	});
+  conf.showDatepicker()
 	self.touchstart = conf.touchstart.bind(self);
 	self.touchmove = conf.touchmove.bind(self);
 	self.showDatepicker = conf.showDatepicker.bind(self);

@@ -1,5 +1,5 @@
 <!--user.wxml-->
-<view class="container">
+<view class="main">
   <view class="userinfo">
     <view class="flex-item">
       <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>

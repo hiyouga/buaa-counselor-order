@@ -1,20 +1,19 @@
 <!-- apply.wxml -->
-<view class="table">
-  <view class="tr bg-g">
-    <view class="th">导员</view>
-    <view class="th">时间</view>
-    <view class="th">地点</view>
-  </view>
+<view class="main">
   <block wx:key="" wx:for="{{orders}}" wx:for-item="order">
-    <view data-idx="{{order.sid}}" class="tr bg-g" wx:if="{{index % 2 == 0}}" bindtap="confirm">
-      <view class="td">{{order.name}}</view>
-      <view class="td">{{order.start_at}}~{{order.end_at}}</view>
-      <view class="td">{{order.location}}</view>
+    <view class="order-block bg-g" wx:if="{{order.is_complete == 0}}">
+      <view class="order-info half-width"><text class="title">教师：</text><text class="detail">{{order.name}}</text></view>
+      <view class="order-info half-width"><text class="title">类型：</text><text class="detail">{{order.type}}</text></view>
+      <view class="order-info full-width"><text class="title">时间：</text><text class="detail">{{order.date}} {{order.start_at}}~{{order.end_at}}</text></view>
+      <view class="order-info half-width"><text class="title">地点：</text><text class="detail">{{order.location}}</text></view>
+      <view class="order-info half-width"><text class="title">是否有效：</text><text class="detail">未生效</text></view>
     </view>
-    <view data-idx="{{order.sid}}" class="tr" wx:else bindtap="confirm">
-      <view class="td">{{order.name}}</view>
-      <view class="td">{{order.start_at}}~{{order.end_at}}</view>
-      <view class="td">{{order.location}}</view>
+    <view class="order-block bg-n" wx:if="{{order.is_complete == 1}}">
+      <view class="order-info half-width"><text class="title">教师：</text><text class="detail">{{order.name}}</text></view>
+      <view class="order-info half-width"><text class="title">类型：</text><text class="detail">{{order.type}}</text></view>
+      <view class="order-info full-width"><text class="title">时间：</text><text class="detail">{{order.date}} {{order.start_at}}~{{order.end_at}}</text></view>
+      <view class="order-info half-width"><text class="title">地点：</text><text class="detail">{{order.location}}</text></view>
+      <view class="order-info half-width"><text class="title">是否有效：</text><text class="detail">已生效</text></view>
     </view>
   </block>
 </view>

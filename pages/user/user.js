@@ -62,6 +62,19 @@ Page({
               input_status: '',
               hideModalput: true
             })
+            wx.showToast({
+              title: '修改成功',
+              icon: 'success',
+              duration: 1650,
+              mask: true,
+              success: res => {
+                setTimeout(function () {
+                  wx.switchTab({
+                    url: '../user/user'
+                  })
+                }, 2000)
+              }
+            })
           } else {
             this.setData({
               input_status: '提交出错，请重试！'

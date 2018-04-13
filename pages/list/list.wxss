@@ -10,7 +10,7 @@
   align-items: center;
 }
 .td {
-  width: 30%;
+  width: 40%;
   justify-content: center;
   text-align: center;
   font-size: 28rpx;
