@@ -3,14 +3,22 @@ const app = getApp()
 
 Page({
   data: {
-    navbar: ['导员有约', '院长下午茶', '导师预约'],
-    navurl: ['../order/order', '../null/null', '../null/null'],
+    navbar: [
+      '导员有约', 
+      '院长下午茶', 
+      '导师预约', 
+      '尚未开放'
+      ],
+    navurl: ['../order/order', '../null/null', '../null/null', '../null/null'],
+    navable: ['', 'disabled', 'disabled', 'disabled']
   },
+  
   navbarTap: function (e) {
     wx.navigateTo({
       url: e.currentTarget.dataset.href
     })
   },
+
   force_real: function (userid) {
     wx.request({
       url: 'https://buaa.hiyouga.top/user.php',

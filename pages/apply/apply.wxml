@@ -2,18 +2,54 @@
 <view class="main">
   <block wx:key="" wx:for="{{orders}}" wx:for-item="order">
     <view class="order-block bg-g" wx:if="{{order.is_complete == 0}}">
-      <view class="order-info half-width"><text class="title">教师：</text><text class="detail">{{order.name}}</text></view>
-      <view class="order-info half-width"><text class="title">类型：</text><text class="detail">{{order.type}}</text></view>
-      <view class="order-info full-width"><text class="title">时间：</text><text class="detail">{{order.date}} {{order.start_at}}~{{order.end_at}}</text></view>
-      <view class="order-info half-width"><text class="title">地点：</text><text class="detail">{{order.location}}</text></view>
-      <view class="order-info half-width"><text class="title">是否有效：</text><text class="detail">未生效</text></view>
+      <view class="order-info half-width">
+        <text class="title">教师：</text>
+        <text class="detail">{{order.name}}</text>
+      </view>
+      <view class="order-info half-width">
+        <text class="title">类型：</text>
+        <text class="detail">{{order.type}}</text>
+      </view>
+      <view class="order-info full-width">
+        <text class="title">时间：</text>
+        <text class="detail">{{order.date}} {{order.start_at}}~{{order.end_at}}</text>
+      </view>
+      <view class="order-info half-width">
+        <text class="title">地点：</text>
+        <text class="detail">{{order.location}}</text>
+      </view>
+      <view class="order-info half-width">
+        <text class="title">是否有效：</text>
+        <text class="detail">未生效</text>
+      </view>
+      <view class="bottom-row">
+        <button style="border-bottom-left-radius: 15rpx; background-color: #007bff;" class="bottom-btn" type="primary" disabled="{{order.prb_btn}}">补充问题简述</button>
+      </view>
+      <view class="bottom-row">
+        <button style="border-bottom-right-radius: 15rpx;" class="bottom-btn" type="primary" disabled="{{order.can_cancel}}" bindtap="cancel_order" data-mid="{{order.mid}}">取消预约</button>
+      </view>
     </view>
     <view class="order-block bg-n" wx:if="{{order.is_complete == 1}}">
-      <view class="order-info half-width"><text class="title">教师：</text><text class="detail">{{order.name}}</text></view>
-      <view class="order-info half-width"><text class="title">类型：</text><text class="detail">{{order.type}}</text></view>
-      <view class="order-info full-width"><text class="title">时间：</text><text class="detail">{{order.date}} {{order.start_at}}~{{order.end_at}}</text></view>
-      <view class="order-info half-width"><text class="title">地点：</text><text class="detail">{{order.location}}</text></view>
-      <view class="order-info half-width"><text class="title">是否有效：</text><text class="detail">已生效</text></view>
+      <view class="order-info half-width">
+        <text class="title">教师：</text>
+        <text class="detail">{{order.name}}</text>
+      </view>
+      <view class="order-info half-width">
+        <text class="title">类型：</text>
+        <text class="detail">{{order.type}}</text>
+      </view>
+      <view class="order-info full-width">
+        <text class="title">时间：</text>
+        <text class="detail">{{order.date}} {{order.start_at}}~{{order.end_at}}</text>
+      </view>
+      <view class="order-info half-width">
+        <text class="title">地点：</text>
+        <text class="detail">{{order.location}}</text>
+      </view>
+      <view class="order-info half-width">
+        <text class="title">是否有效：</text>
+        <text class="detail">已生效</text>
+      </view>
     </view>
   </block>
 </view>

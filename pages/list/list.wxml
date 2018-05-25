@@ -1,8 +1,5 @@
 <!--list.wxml-->
 <view class="table">
-  <view class="tr">
-    <view class="header">{{pagedate}}</view>
-  </view>
   <view class="tr bg-g">
     <view class="th">导员</view>
     <view class="th">时间</view>

@@ -5,13 +5,14 @@
     "pages/list/list",
     "pages/apply/apply",
     "pages/user/user",
-    "pages/null/null"
+    "pages/null/null",
+    "pages/form/form"
   ],
   "window":{
     "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#fff",
+    "navigationBarBackgroundColor": "#3366FF",
     "navigationBarTitleText": "汇融有约",
-    "navigationBarTextStyle":"black"
+    "navigationBarTextStyle":"white"
   },
   "tabBar": {
     "color": "#a9b7b7",

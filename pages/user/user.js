@@ -25,7 +25,7 @@ Page({
       this.setData({
         userInfo: app.globalData.userInfo
       })
-      console.log('mine')
+      //console.log('mine')
     }
   },
 

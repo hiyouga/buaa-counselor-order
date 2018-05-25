@@ -2,6 +2,7 @@
 error_reporting(0);
 header('Content-type: application/json');
 require_once 'database.php';
+require_once 'util.php';
 if ($_GET['type'] == 'getUserId') {
 	$openid = $_GET['openid'];
 	$data = getUserInfo($link, $openid, 0);
@@ -16,7 +17,8 @@ if ($_GET['type'] == 'getUserId') {
 	$data = mysqli_fetch_assoc($res);
 	mysqli_free_result($res);
 } elseif ($_GET['type'] == 'updateReal') {
-	if (strcmp(md5(getKey($link, $_GET['uid']) . time()), $_GET['sign'])) {
+	//if (strcmp(md5(getKey($link, $_GET['uid']) . time()), $_GET['sign'])) {
+	if (strcmp(md5(getKey($link, $_GET['uid'])), $_GET['sign'])) {
 		$data = array('status' => 'denied');
 	} else {
 		$sql = "UPDATE user_info SET is_realname = 1, class_id = '"
@@ -38,14 +40,6 @@ mysqli_close($link);
 echo json_encode($data);
 exit;
 
-function getKey ($link, $uid) {
-	$sql = "SELECT unique_key FROM user_info WHERE uid = " . $uid;
-	$res = mysqli_query($link, $sql);
-	$row = mysqli_fetch_assoc($res);
-	mysqli_free_result($res);
-	return $row['unique_key'];
-}
-
 function getUserInfo ($link, $openid, $is_new) {
 	if ($is_new > 1) { //avoid recursive function error
 		return null;
@@ -62,7 +56,7 @@ function getUserInfo ($link, $openid, $is_new) {
 		$unique_key = md5($openid . rand(1, 1000));
 		$new_sql = "INSERT INTO user_info (openid, unique_key) VALUES ('$openid', '$unique_key')";
 		if(mysqli_query($link, $new_sql)){
-			return getUserInfo($link, $openid, $is_new+1);
+			return getUserInfo($link, $openid, $is_new + 1);
 		}
 	}
 }

@@ -2,6 +2,7 @@
 error_reporting(0);
 header('Content-type: application/json');
 require_once 'database.php';
+require_once 'util.php';
 $data = array();
 if ($_GET['type'] == 'selectBySid') {
 	$sql = "SELECT * FROM schedule WHERE sid = " . $_GET['sid'];
@@ -14,7 +15,7 @@ if ($_GET['type'] == 'selectBySid') {
 		$data[] = $row;
 	}
 } elseif ($_GET['type'] == 'selectByUid') {
-	$sql = "SELECT sid, is_complete FROM orderform WHERE uid = " . $_GET['uid'] . " ORDER BY launch_time DESC";
+	$sql = "SELECT mid, sid, is_complete, has_problem, problem FROM orderform WHERE uid = " . $_GET['uid'] . " ORDER BY launch_time DESC";
 	$res = mysqli_query($link, $sql);
 	while ($row = mysqli_fetch_assoc($res)) {
 		$data[] = getDetail($link, $row);

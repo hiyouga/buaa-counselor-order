@@ -1,6 +1,9 @@
 <!--index.wxml-->
 <view class="container">
   <view class="navbar">
-    <button class="navbtn" wx:for="{{navbar}}" data-index="{{index}}" data-href="{{navurl[index]}}" wx:key="unique" bindtap="navbarTap">{{item}}</button>
+    <button class="navbtn" wx:for="{{navbar}}" data-index="{{index}}" data-href="{{navurl[index]}}" wx:key="unique" bindtap="navbarTap" disabled="{{navable[index]}}">
+      <image class="menu_icon" src="../../res/imgs/menu_0{{index}}.png"></image>
+      <text class="menu_text">{{item}}</text>
+    </button>
   </view>
 </view>

@@ -1,8 +1,28 @@
 /**index.wxss**/
 .navbar {
-  width: 100%;
+  width: 90%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
 }
 
 .navbtn {
-  margin-bottom: 40rpx;
+  margin: 2.5%;
+  padding: 30rpx;
+  width: 45%;
+  display: flex;
+  flex-direction: column;
+  background-color: #fefefe;
+  border: solid #eee 1rpx;
+}
+
+.menu_icon {
+  width: 100rpx;
+  height: 100rpx;
+  display: block;
+  margin: 0 auto;
+}
+
+.menu_text {
+  font-size: 35rpx;
 }

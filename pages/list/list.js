@@ -27,6 +27,9 @@ Page({
           pagedate: options.date,
           orders: res.data
         })
+        wx.setNavigationBarTitle({
+          title: options.date+'的时刻表'
+        })
       }
     })
   },
@@ -62,9 +65,11 @@ Page({
     wx.request({
       url: 'https://buaa.hiyouga.top/order.php',
       data: {
+        type: 'order',
         uid: app.globalData.userId,
         sid: sid,
-        sign: app.makeSign(app.globalData.unique_key + String(Date.parse(new Date()) / 1000))
+        sign: app.makeSign(app.globalData.unique_key)
+        //sign: app.makeSign(app.globalData.unique_key + String(Date.parse(new Date()) / 1000))
       },
       method: 'GET',
       dataType: 'json',
@@ -78,10 +83,17 @@ Page({
             success: res => {
               setTimeout(function () {
                 wx.switchTab({
-                  url: '../index/index'
+                  url: '../apply/apply'
                 })
               }, 2000)
             }
+          })
+        } else if (res.data.status == 'denied') {
+          wx.showToast({
+            title: '页面过期，请刷新',
+            icon: 'none',
+            duration: 2000,
+            mask: true
           })
         } else {
           wx.showToast({

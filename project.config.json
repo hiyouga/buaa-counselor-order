@@ -8,7 +8,7 @@
 		"newFeature": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "1.9.94",
+	"libVersion": "2.0.8",
 	"appid": "wxef85f5b0a90b967b",
 	"projectname": "buaa-counselor-order",
 	"isGameTourist": false,
@@ -18,6 +18,10 @@
 			"list": []
 		},
 		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
 			"current": -1,
 			"list": []
 		},
