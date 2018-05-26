@@ -31,13 +31,14 @@ Page({
       success: res => {
         //console.log(res)
         if (res.data.is_realname == 0) {
-          wx.navigateTo({
+          wx.reLaunch({
             url: '../user/user?type=force_real&uid=' + userid,
           })
         }
       }
     })
   },
+
   onLoad: function () {
     if (app.globalData.userId) {
       this.force_real(app.globalData.userId)

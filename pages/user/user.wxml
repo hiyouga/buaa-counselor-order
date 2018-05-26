@@ -8,20 +8,25 @@
       <view class="flex-col"><text class="userinfo-stuname">{{userInfo.stu_name}}</text></view>
       <view class="flex-col"><text class="userinfo-stuid">{{userInfo.stu_id}}</text></view>
     </view>
-    <view class="flex-row">
+    <view class="flex-row plain">
       院系：<text class="">高等理工学院</text>
     </view>
-    <view class="flex-row">
+    <view class="flex-row plain">
       班级：<text class="">{{userInfo.class_id}}</text>
     </view>
-    <view class="flex-row">
+    <view class="flex-row plain">
       已完成预约数：<text class="">{{userInfo.completed_orders}}</text>
     </view>
-    <view class="flex-row">
+    <view class="flex-row plain">
       全部预约数：<text class="">{{userInfo.all_orders}}</text>
     </view>
+    <view class="flex-row plain" bindtap="update_info">
+      <text class="">修改个人资料 »</text>
+    </view>
+    <view class="flex-row plain">
+      <text class="contact_text">反馈&建议：hiyouga@buaa.edu.cn</text>
+    </view>
   </view>
-  <button type="primary" bindtap="update_info">修改个人资料</button>
 </view>
 
 <modal hidden="{{hideModalput}}" title="修改实名信息" confirm-text="提交" cancel-text="取消" bindcancel="cancel_info" bindconfirm="confirm_info">

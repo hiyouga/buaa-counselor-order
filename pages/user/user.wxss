@@ -15,13 +15,16 @@
   flex-wrap: wrap;
   flex-direction: row;
   width: 100%;
+  margin-top: 1%;
 }
 
 .flex-row {
   display: flex;
   width: 100%;
-  margin: 2% 0 3% 0;
-  justify-content: center;
+  margin: 2% 0 2% 0;
+  padding: 3% 0 3% 0;
+  /*justify-content: center;*/
+  background-color: #f3f3f3;
 }
 
 .flex-col {
@@ -40,6 +43,10 @@
   flex-direction: row;
   flex-wrap: wrap;
   align-content: center;
+}
+
+.plain {
+  padding-left: 8%;
 }
 
 .userinfo-avatar {
@@ -64,4 +71,9 @@
   padding: 8rpx;
   margin: 2%;
   border-radius: 10%;
+}
+
+.contact_text {
+  color: #666;
+  font-size: 35rpx;
 }

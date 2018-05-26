@@ -27,6 +27,11 @@ if (strcmp(md5(getKey($link, $_GET['uid'])), $_GET['sign'])) {
 		mysqli_query($link, $sql);
 		dec_member($link, $sid_num['sid'], $_GET['uid']);
 		$data['status'] = 'success';
+	} elseif ($_GET['type'] == 'problem') {
+		$sql = "UPDATE orderform SET has_problem = 1, problem = '"
+		. $_GET['problem_text'] . "' WHERE mid = " . $_GET['mid'];
+		mysqli_query($link, $sql);
+		$data = array('status' => 'success');
 	}
 }
 mysqli_close($link);

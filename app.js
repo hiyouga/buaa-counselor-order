@@ -128,10 +128,12 @@ App({
       }
     })
   },
+
   makeSign: function (str) {
     var encrypted = md5(str);
     return encrypted;
   },
+  
   globalData: {
     userId: null,
     userInfo: null

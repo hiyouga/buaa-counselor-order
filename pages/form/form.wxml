@@ -1,0 +1,10 @@
+<form class="order-block" bindsubmit="formSubmit" bindreset="formReset">
+  <view class="weui-cells__title">请输入您的问题简述，以方便对方提前准备</view>
+  <view class="weui-cells weui-cells_after-title">
+    <textarea class="weui-textarea" name="problem_text" auto-focus="auto-focus" maxlength="-1" />
+  </view>
+  <view class="btn-area">
+    <button formType="submit" class="form-btn">提交</button>
+    <button formType="reset" class="form-btn">重置</button>
+  </view>
+</form>

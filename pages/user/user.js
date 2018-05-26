@@ -16,6 +16,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log(options)
     if (options.type == 'force_real') {
       this.setData({
         hideModalput: false
@@ -45,16 +46,21 @@ Page({
         url: 'https://buaa.hiyouga.top/user.php',
         data: {
           type: 'updateReal',
-          userid: app.globalData.userId,
-          class_id: this.data.userInfo.class_id,
-          stu_id: this.data.userInfo.stu_id,
-          stu_name: this.data.userInfo.stu_name,
-          sign: app.makeSign(app.globalData.unique_key + String(Date.parse(new Date()) / 1000))
+          uid: app.globalData.userId,
+          class_id: this.data.userInfo.temp_class_id,
+          stu_id: this.data.userInfo.temp_stu_id,
+          stu_name: this.data.userInfo.temp_stu_name,
+          sign: app.makeSign(app.globalData.unique_key)
         },
         method: 'GET',
         dataType: 'json',
         success: res => {
           if (res.data.status == 'success') {
+            this.setData({
+              ['userInfo.class_id']: this.data.userInfo.temp_class_id,
+              ['userInfo.stu_id']: this.data.userInfo.temp_stu_id,
+              ['userInfo.stu_name']: this.data.userInfo.temp_stu_name
+            })
             wx.setStorage({
               key: 'userInfo',
               data: this.data.userInfo
@@ -95,7 +101,7 @@ Page({
 
   get_input: function (e) {
     this.setData({
-      ['userInfo.' + e.currentTarget.dataset.name]: e.detail.value
+      ['userInfo.temp_' + e.currentTarget.dataset.name]: e.detail.value
     })
   }
 })

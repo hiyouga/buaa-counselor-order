@@ -7,29 +7,45 @@ Page({
     pagedate: '',
     orders: []
   },
-
+  
   onLoad: function (options) {
+    this.setData({
+      pagedate: options.date
+    })
+  },
+
+  onShow: function () {
+    this.getList()
+  },
+
+  onPullDownRefresh: function () {
+    wx.showNavigationBarLoading()
+    this.getList()
+  },
+
+  getList: function () {
     wx.request({
       url: 'https://buaa.hiyouga.top/list.php',
       data: {
         type: 'selectByDate',
-        date: options.date
+        date: this.data.pagedate
       },
       method: 'GET',
       dataType: 'json',
       success: res => {
-        res.data.forEach(function(value, key, arr) {
+        res.data.forEach(function (value, key, arr) {
           var end_date = new Date(Date.parse('2000-01-01 ' + value.start_at) + Date.parse('2000-01-01 ' + value.duration) - Date.parse('2000-01-01 00:00:00'))
           value.end_at = end_date.toTimeString().substring(0, 8)
           //console.log(value)
         })
         this.setData({
-          pagedate: options.date,
           orders: res.data
         })
         wx.setNavigationBarTitle({
-          title: options.date+'的时刻表'
+          title: this.data.pagedate + '的时刻表'
         })
+        wx.hideNavigationBarLoading()
+        wx.stopPullDownRefresh()
       }
     })
   },
@@ -82,7 +98,7 @@ Page({
             mask: true,
             success: res => {
               setTimeout(function () {
-                wx.switchTab({
+                wx.reLaunch({
                   url: '../apply/apply'
                 })
               }, 2000)

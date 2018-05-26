@@ -24,7 +24,7 @@ if ($_GET['type'] == 'getUserId') {
 		$sql = "UPDATE user_info SET is_realname = 1, class_id = '"
 		. $_GET['class_id'] . "', stu_id = '"
 		. $_GET['stu_id'] . "', stu_name = '"
-		. $_GET['stu_name'] . "' WHERE uid = " . $_GET['userid'];
+		. $_GET['stu_name'] . "' WHERE uid = " . $_GET['uid'];
 		mysqli_query($link, $sql);
 		$data = array('status' => 'success');
 	}

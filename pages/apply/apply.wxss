@@ -7,6 +7,19 @@ text {
   margin-left: 20rpx;
 }
 
+.tips {
+  text-align: center;
+  color: #f00;
+  margin: 3%;
+}
+
+.tips_text {
+  border: 1rpx #999 solid;
+  padding: 10rpx;
+  border-radius: 8rpx;
+  background-color: #eee;
+}
+
 .bottom-row {
   margin: 0;
   width: 50%;

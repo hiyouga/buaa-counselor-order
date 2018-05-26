@@ -4,6 +4,7 @@ const app = getApp()
 Page({
 
   data: {
+    hideTips: true,
     application: []
   },
 
@@ -17,6 +18,10 @@ Page({
   },
 
   getList: function () {
+    var _this = this
+    this.setData({
+      hideTips: true
+    })
     wx.request({
       url: 'https://buaa.hiyouga.top/list.php',
       data: {
@@ -30,15 +35,20 @@ Page({
           var end_date = new Date(Date.parse('2000-01-01 ' + value.start_at) + Date.parse('2000-01-01 ' + value.duration) - Date.parse('2000-01-01 00:00:00'))
           value.end_at = end_date.toTimeString().substring(0, 8)
           //console.log(value)
-          if (Date.parse(value.date + ' ' + value.start_at) - new Date() > 3600000 * 24) {
-            value.can_cancel = ''
-          } else {
-            value.can_cancel = 'disabled'
-          }
-          if (value.has_problem == 0) {
-            value.prb_btn = ''
-          } else {
-            value.prb_btn = 'disabled'
+          if (value.is_complete == 0) {
+            if (Date.parse(value.date + ' ' + value.start_at) - new Date() > 3600000 * 24) {
+              value.can_cancel = ''
+            } else {
+              value.can_cancel = 'disabled'
+            }
+            if (value.has_problem == 0) {
+              _this.setData({
+                hideTips: false
+              })
+              value.prb_btn = ''
+            } else {
+              value.prb_btn = 'disabled'
+            }
           }
         })
         this.setData({
@@ -81,13 +91,6 @@ Page({
                     }, 2000)
                   }
                 })
-              } else {
-                wx.showToast({
-                  title: '预约失败！_(:з」∠)_',
-                  icon: 'none',
-                  duration: 2000,
-                  mask: true
-                })
               }
             }
           })
@@ -95,6 +98,12 @@ Page({
           //order canceled
         }
       }
+    })
+  },
+  
+  write_problem: function (e) {
+    wx.navigateTo({
+      url: '../form/form?mid=' + e.currentTarget.dataset.mid
     })
   }
 })
