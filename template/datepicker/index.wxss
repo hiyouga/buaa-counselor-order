@@ -234,3 +234,24 @@
 	border-top-right-radius: 20rpx;
 	border-bottom-right-radius: 20rpx;
 }
+
+.point {
+  font-size: 20rpx;
+  margin:-15rpx 0 15rpx 0;
+}
+
+.pt-empty {
+  color: #5cb85c;
+}
+
+.pt-full {
+  color: #d58512;
+}
+
+.pt-none {
+  visibility: hidden;
+}
+
+.loading {
+  visibility: hidden;
+}

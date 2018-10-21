@@ -65,6 +65,9 @@ const conf = {
 		}
 	},
 	calculateDays(year, month, curDate) {
+    this.setData({
+      'datepicker.loading': null
+    })
 		let days = [];
 		let day;
 		let selectMonth;
@@ -76,26 +79,44 @@ const conf = {
 			selectMonth = selectedDay[ 0 ].month;
 			selectYear = selectedDay[ 0 ].year;
 		}
-		for (let i = 1; i <= thisMonthDays; i++) {
-			days.push({
-				day: i,
-				choosed: curDate ? (i === curDate) : (year === selectYear && month === selectMonth && i === day),
-				year,
-				month,
-			});
-		}
-		const tmp = {
-			'datepicker.days': days,
-		};
-		if (curDate) {
-			tmp[ 'datepicker.selectedDay' ] = [ {
-				day: curDate,
-				choosed: true,
-				year,
-				month,
-			} ];
-		}
-		this.setData(tmp);
+    wx.request({
+      url: 'https://buaa.hiyouga.top/date.php',
+      data: {
+        year: year,
+        month: month
+      },
+      method: 'GET',
+      dataType: 'json',
+      success: res => {
+        for (let i = 1; i <= thisMonthDays; i++) {
+          days.push({
+            day: i,
+            choosed: curDate ? (i === curDate) : (year === selectYear && month === selectMonth && i === day),
+            year,
+            month,
+            status: 0
+          });
+        }
+        if (res.data) {
+          res.data.forEach(function (value, key, arr) {
+            days[value.date - 1].status = (value.is_full) ? 1 : 2
+          })
+        }
+        const tmp = {
+          'datepicker.days': days,
+          'datepicker.loading': 'completed'
+        };
+        if (curDate) {
+          tmp['datepicker.selectedDay'] = [{
+            day: curDate,
+            choosed: true,
+            year,
+            month,
+          }];
+        }
+        this.setData(tmp)
+      }
+    })
 	},
 	/**
 	 * 初始化日历选择器

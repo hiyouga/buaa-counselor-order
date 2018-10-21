@@ -8,7 +8,7 @@
 		"newFeature": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.0.8",
+	"libVersion": "2.3.0",
 	"appid": "wxef85f5b0a90b967b",
 	"projectname": "buaa-counselor-order",
 	"isGameTourist": false,

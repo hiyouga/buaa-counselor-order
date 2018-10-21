@@ -1,5 +1,4 @@
 {
   "navigationBarTitleText": "选择时间",
-  "enablePullDownRefresh": true,
-  "backgroundColor": "#3366FF"
+  "enablePullDownRefresh": true
 }

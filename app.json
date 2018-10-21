@@ -9,10 +9,10 @@
     "pages/form/form"
   ],
   "window":{
-    "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#3366FF",
+    "navigationBarTextStyle": "black",
     "navigationBarTitleText": "汇融有约",
-    "navigationBarTextStyle":"white"
+    "navigationBarBackgroundColor": "#f8f8f8",
+    "backgroundColor": "#f8f8f8"
   },
   "tabBar": {
     "color": "#a9b7b7",

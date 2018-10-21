@@ -24,7 +24,7 @@
   margin: 2% 0 2% 0;
   padding: 3% 0 3% 0;
   /*justify-content: center;*/
-  background-color: #f3f3f3;
+  background-color: #fff;
 }
 
 .flex-col {
