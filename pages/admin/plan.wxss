@@ -1,0 +1,6 @@
+/* pages/admin/plan.wxss */
+
+.align-center {
+  justify-content: center;
+  display: flex;
+}

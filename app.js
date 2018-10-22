@@ -2,6 +2,10 @@
 import md5 from 'utils/md5.js'
 App({
   onLaunch: function () {
+    this.init()
+  },
+
+  init: function() {
     wx.getStorage({
       key: 'openid',
       success: res => {
@@ -24,7 +28,7 @@ App({
           url: 'https://buaa.hiyouga.top/user.php',
           data: {
             type: 'updateTime',
-            userid: this.globalData.userId, 
+            userid: this.globalData.userId,
           },
           method: 'GET',
           dataType: 'json',
@@ -42,6 +46,7 @@ App({
       }
     })
   },
+
   doLogin: function () {
     wx.login({
       success: res => {

@@ -6,7 +6,10 @@
     "pages/apply/apply",
     "pages/user/user",
     "pages/null/null",
-    "pages/form/form"
+    "pages/form/form",
+    "pages/admin/admin",
+    "pages/admin/plan",
+    "pages/admin/review"
   ],
   "window":{
     "navigationBarTextStyle": "black",

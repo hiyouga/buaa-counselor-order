@@ -29,7 +29,7 @@ if ($_GET['type'] == 'getUserId') {
 		$data = array('status' => 'success');
 	}
 } elseif ($_GET['type'] == 'getReal') {
-	$sql = "SELECT is_realname, class_id, stu_id, stu_name, completed_orders, all_orders FROM user_info WHERE uid = " . $_GET['userid'];
+	$sql = "SELECT is_realname, is_admin, class_id, stu_id, stu_name, completed_orders, all_orders FROM user_info WHERE uid = " . $_GET['userid'];
 	$res = mysqli_query($link, $sql);
 	$data = mysqli_fetch_assoc($res);
 	mysqli_free_result($res);

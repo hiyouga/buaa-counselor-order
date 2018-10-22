@@ -1,0 +1,14 @@
+<view class="page__hd">
+  <view class="page__title">管理后台</view>
+  <view class="page__desc">添加或管理预约</view>
+</view>
+<view class="weui-cells weui-cells_after-title">
+  <navigator url="plan" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+    <view class="weui-cell__bd">添加预约安排</view>
+    <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+  </navigator>
+  <navigator url="review" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+    <view class="weui-cell__bd">预约签到</view>
+    <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+  </navigator>
+</view>

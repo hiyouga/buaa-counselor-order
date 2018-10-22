@@ -3,18 +3,12 @@ const app = getApp()
 
 Page({
 
-  /**
-   * 页面的初始数据
-   */
   data: {
     hideModalput: true,
     input_status: '',
     userInfo: {},    
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad: function (options) {
     if (options.type == 'force_real') {
       this.setData({
@@ -25,7 +19,6 @@ Page({
       this.setData({
         userInfo: app.globalData.userInfo
       })
-      //console.log('mine')
     }
   },
 
@@ -36,7 +29,7 @@ Page({
   },
 
   confirm_info: function () {
-    if (this.data.userInfo.class_id == '' || this.data.userInfo.stu_id == '' || this.data.userInfo.stu_name == '') {
+    if (!this.data.userInfo.temp_class_id || !this.data.userInfo.temp_stu_id || !this.data.userInfo.temp_stu_name) {
       this.setData({
         input_status: '输入框不能留空！'
       })
@@ -68,6 +61,11 @@ Page({
               input_status: '',
               hideModalput: true
             })
+            this.setData({
+              ['userInfo.temp_class_id']: '',
+              ['userInfo.temp_stu_id']: '',
+              ['userInfo.temp_stu_name']: ''
+            })
             wx.showToast({
               title: '修改成功',
               icon: 'success',
@@ -98,9 +96,38 @@ Page({
     })
   },
 
+  getavatar: function (e) {
+    this.setData({
+      ['userInfo.avatarUrl']: e.detail.userInfo.avatarUrl
+    })
+    wx.setStorage({
+      key: 'userInfo',
+      data: this.data.userInfo
+    })
+  },
+
   get_input: function (e) {
     this.setData({
       ['userInfo.temp_' + e.currentTarget.dataset.name]: e.detail.value
+    })
+  },
+
+  cleardata: function () {
+    wx.showModal({
+      title: '提示',
+      content: '您确认要清除全部本地缓存吗？',
+      success: status => {
+        if (status.confirm) {
+          wx.clearStorage({
+            complete: res => {
+              app.init()
+              wx.reLaunch({
+                url: '../index/index'
+              })
+            }
+          })
+        }
+      }
     })
   }
 })

@@ -1,19 +1,20 @@
 <!--user.wxml-->
 <view class="main">
-  <view class="weui-cells weui-cells_after-title">
-    <view class="userinfo">
-      <view class="flex-row avatar">
-        <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+  <view class="userinfo">
+    <view class="flex-row avatar">
+      <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover" wx:if="{{userInfo.avatarUrl}}"></image>
+      <button open-type="getUserInfo" bindgetuserinfo="getavatar" class="getavatar" wx:else>同步头像</button>
+    </view>
+    <view class="flex-row meta">
+      <view class="flex-col">
+        <text class="userinfo-stuname {{userInfo.is_admin==1?'admin':''}}">{{userInfo.stu_name}}</text>
       </view>
-      <view class="flex-row meta">
-        <view class="flex-col">
-          <text class="userinfo-stuname">{{userInfo.stu_name}}</text>
-        </view>
-        <view class="flex-col">
-          <text class="userinfo-stuid">{{userInfo.stu_id}}</text>
-        </view>
+      <view class="flex-col">
+        <text class="userinfo-stuid">{{userInfo.stu_id}}</text>
       </view>
     </view>
+  </view>
+  <view class="weui-cells weui-cells_after-title">
     <view class="weui-cell">
       <view class="weui-cell__bd">院系：</view>
       <view class="weui-cell__ft">高等理工学院</view>
@@ -30,8 +31,16 @@
       <view class="weui-cell__bd">全部预约数：</view>
       <view class="weui-cell__ft">{{userInfo.all_orders}}</view>
     </view>
+    <navigator url="../admin/admin" class="weui-cell weui-cell_access" hover-class="weui-cell_active" wx:if="{{userInfo.is_admin==1}}">
+      <view class="weui-cell__bd">进入管理后台</view>
+      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+    </navigator>
     <view bindtap="update_info" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
       <view class="weui-cell__bd">修改个人资料</view>
+      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+    </view>
+    <view bindtap="cleardata" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+      <view class="weui-cell__bd">清除本地缓存</view>
       <view class="weui-cell__ft weui-cell__ft_in-access"></view>
     </view>
     <button open-type="contact" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
@@ -46,13 +55,13 @@
 
 <modal hidden="{{hideModalput}}" title="修改实名信息" confirm-text="提交" cancel-text="取消" bindcancel="cancel_info" bindconfirm="confirm_info">
   <view class="cell_input">
-    <input data-name="class_id" type="number" placeholder="请输入班号" bindinput="get_input" maxlength="6" />
+    <input value="{{userInfo.temp_class_id}}" data-name="class_id" type="number" placeholder="请输入班号" bindinput="get_input" maxlength="6" />
   </view>
   <view class="cell_input">
-    <input data-name="stu_id" type="number" placeholder="请输入学号" bindinput="get_input" maxlength="8" />
+    <input value="{{userInfo.temp_stu_id}}" data-name="stu_id" type="number" placeholder="请输入学号" bindinput="get_input" maxlength="8" />
   </view>
   <view class="cell_input">
-    <input data-name="stu_name" type="text" placeholder="请输入真实姓名" bindinput="get_input" maxlength="8" />
+    <input value="{{userInfo.temp_stu_name}}" data-name="stu_name" type="text" placeholder="请输入真实姓名" bindinput="get_input" maxlength="5" />
   </view>
   <view class="warning">{{input_status}}</view>
 </modal>
