@@ -29,7 +29,7 @@ Page({
       success: status => {
         if (status.confirm) {
           wx.request({
-            url: 'https://buaa.hiyouga.top/order.php',
+            url: app.globalData.domain + 'order.php',
             data: {
               type: 'problem',
               uid: app.globalData.userId,

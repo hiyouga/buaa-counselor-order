@@ -82,7 +82,7 @@ button {
   display: flex;
 }
 
-.contact_text {
-  color: #666;
-  font-size: 35rpx;
+.version {
+  font-weight: bold;
+  margin-right: 25rpx;
 }

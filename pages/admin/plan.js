@@ -62,7 +62,7 @@ Page({
     } else {
       var duration = new Date(Date.parse('2000-01-01 ' + formdata.end_time) - Date.parse('2000-01-01 ' + formdata.start_time) + Date.parse('2000-01-01 00:00:00'))
       wx.request({
-        url: 'https://buaa.hiyouga.top/schedule.php',
+        url: app.globalData.domain + 'schedule.php',
         data: {
           uid: app.globalData.userId,
           type: 'add',

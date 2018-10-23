@@ -9,7 +9,7 @@ if (strcmp(md5(getKey($link, $_GET['uid'])), $_GET['sign'])) {
 	$data['status'] = 'denied';
 } else {
 	if ($_GET['type'] == 'add') {
-		$sql = "INSERT INTO schedule (name, type, date, start_at, duration, location, max_member) VALUES ('".$_GET['name']."', '".$_GET['ordertype']."', '".$_GET['date']."', '".$_GET['start_time']."', '".$_GET['duration']."', '".$_GET['location']."', '".$_GET['max_member']."')";
+		$sql = "INSERT INTO schedule (uid, name, type, date, start_at, duration, location, max_member) VALUES ('".$_GET['uid']."', '".$_GET['name']."', '".$_GET['ordertype']."', '".$_GET['date']."', '".$_GET['start_time']."', '".$_GET['duration']."', '".$_GET['location']."', '".$_GET['max_member']."')";
 		mysqli_query($link, $sql);
 		$data = array('status' => 'success');
 	} elseif ($_GET['type'] == 'problem') {

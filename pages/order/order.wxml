@@ -1,5 +1,22 @@
 <!--order.wxml-->
-<import src="../../template/datepicker/index.wxml"/>
+<import src="../../template/datepicker/index.wxml" />
 <view class="datepicker-box">
-	<template is="datepicker" data="{{...datepicker}}" />
+  <template is="datepicker" data="{{...datepicker}}" />
+</view>
+<view class="weui-cells__title">使用帮助</view>
+<view class="weui-cells weui-cells_after-title">
+  <view class="weui-cell">
+    <view class="weui-cell__hd">
+      <view class="pt-empty">●</view>
+    </view>
+    <view class="weui-cell__bd">空闲</view>
+    <view class="weui-cell__ft">当日有可申请预约</view>
+  </view>
+  <view class="weui-cell">
+    <view class="weui-cell__hd">
+      <view class="pt-full">●</view>
+    </view>
+    <view class="weui-cell__bd">已满</view>
+    <view class="weui-cell__ft">当日有预约但已满员</view>
+  </view>
 </view>

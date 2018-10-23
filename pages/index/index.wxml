@@ -1,4 +1,5 @@
 <!--index.wxml-->
+<image src="../../res/imgs/header.jpg" class="slide-image" mode="aspectFill" />
 <view class="container">
   <view class="navbar">
     <a class="navbtn" wx:for="{{navbar}}" data-index="{{index}}" data-href="{{navurl[index]}}" wx:key="unique" bindtap="{{navable[index]?'':'navbarTap'}}">

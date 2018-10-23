@@ -128,7 +128,16 @@ App({
     return encrypted;
   },
 
+  updateInfo: function (info) {
+    this.globalData.userInfo = info
+    wx.setStorage({
+      key: 'userInfo',
+      data: info
+    })
+  },
+
   globalData: {
+    domain: 'https://buaa.hiyouga.top/',
     userId: null,
     userInfo: null
   }

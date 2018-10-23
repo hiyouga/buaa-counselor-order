@@ -12,6 +12,16 @@ Page({
     navurl: ['../order/order', '../null/null', '../null/null', '../null/null'],
     navable: ['', 'disabled', 'disabled', 'disabled']
   },
+
+  onLoad: function () {
+    if (app.globalData.userId) {
+      this.force_real(app.globalData.userId)
+    } else {
+      app.userIdReadyCallback = res => {
+        this.force_real(app.globalData.userId)
+      }
+    }
+  },
   
   navbarTap: function (e) {
     wx.navigateTo({
@@ -21,7 +31,7 @@ Page({
 
   force_real: function (userid) {
     wx.request({
-      url: 'https://buaa.hiyouga.top/user.php',
+      url: app.globalData.domain + 'user.php',
       data: {
         type: 'checkReal',
         userid: userid,
@@ -37,15 +47,5 @@ Page({
         }
       }
     })
-  },
-
-  onLoad: function () {
-    if (app.globalData.userId) {
-      this.force_real(app.globalData.userId)
-    } else {
-      app.userIdReadyCallback = res => {
-        this.force_real(app.globalData.userId)
-      }
-    }
   }
 })

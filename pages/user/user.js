@@ -6,7 +6,7 @@ Page({
   data: {
     hideModalput: true,
     input_status: '',
-    userInfo: {},    
+    userInfo: {},
   },
 
   onLoad: function (options) {
@@ -35,7 +35,7 @@ Page({
       })
     } else {
       wx.request({
-        url: 'https://buaa.hiyouga.top/user.php',
+        url: app.globalData.domain + 'user.php',
         data: {
           type: 'updateReal',
           uid: app.globalData.userId,
@@ -53,10 +53,7 @@ Page({
               ['userInfo.stu_id']: this.data.userInfo.temp_stu_id,
               ['userInfo.stu_name']: this.data.userInfo.temp_stu_name
             })
-            wx.setStorage({
-              key: 'userInfo',
-              data: this.data.userInfo
-            })
+            app.updateInfo(this.data.userInfo)
             this.setData({
               input_status: '',
               hideModalput: true
@@ -100,10 +97,7 @@ Page({
     this.setData({
       ['userInfo.avatarUrl']: e.detail.userInfo.avatarUrl
     })
-    wx.setStorage({
-      key: 'userInfo',
-      data: this.data.userInfo
-    })
+    app.updateInfo(this.data.userInfo)
   },
 
   get_input: function (e) {

@@ -1,47 +1,6 @@
 /* pages/form/form.wxss */
 
-.weui-cells {
-  position: relative;
-  margin-top: 1.17647059em;
-  background-color: #FFFFFF;
-  line-height: 1.41176471;
-  font-size: 17px;
-}
 
-.weui-cells:before {
-  content: " ";
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  height: 1px;
-  border-top: 1rpx solid #D9D9D9;
-  color: #D9D9D9;
-}
-
-.weui-cells:after {
-  content: " ";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  height: 1px;
-  border-bottom: 1rpx solid #D9D9D9;
-  color: #D9D9D9;
-}
-
-.weui-cells__title {
-  margin-top: .77em;
-  margin-bottom: .3em;
-  padding-left: 15px;
-  padding-right: 15px;
-  color: #999999;
-  font-size: 14px;
-}
-
-.weui-cells_after-title {
-  margin-top: 0;
-}
 
 .btn-area {
   display: flex;

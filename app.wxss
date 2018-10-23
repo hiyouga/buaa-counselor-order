@@ -4,16 +4,6 @@ page {
   background-color: whitesmoke;
 }
 
-.container {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  padding: 200rpx 0;
-  box-sizing: border-box;
-}
-
 .warning {
   color: #f00;
 }
@@ -412,6 +402,22 @@ page {
   -webkit-transform: translateZ(0);
   transform: translateZ(0);
   top: 0;
+  left: 0;
+  right: 0;
+  padding: 5px;
+  font-size: 14px;
+  text-align: center;
+  color: #fff;
+  z-index: 5000;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+.weui-toptips-b {
+  position: fixed;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  bottom: 0;
   left: 0;
   right: 0;
   padding: 5px;

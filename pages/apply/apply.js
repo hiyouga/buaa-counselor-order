@@ -4,8 +4,8 @@ const app = getApp()
 Page({
 
   data: {
-    hideTips: true,
-    application: []
+    showTopTips: false,
+    orders: []
   },
 
   onShow: function () {
@@ -20,10 +20,10 @@ Page({
   getList: function () {
     var _this = this
     this.setData({
-      hideTips: true
+      showTopTips: false
     })
     wx.request({
-      url: 'https://buaa.hiyouga.top/list.php',
+      url: app.globalData.domain + 'list.php',
       data: {
         type: 'selectByUid',
         uid: app.globalData.userId
@@ -34,16 +34,15 @@ Page({
         res.data.forEach(function (value, key, arr) {
           var end_date = new Date(Date.parse('2000-01-01 ' + value.start_at) + Date.parse('2000-01-01 ' + value.duration) - Date.parse('2000-01-01 00:00:00'))
           value.end_at = end_date.toTimeString().substring(0, 8)
-          //console.log(value)
           if (value.is_complete == 0) {
             if (Date.parse(value.date + ' ' + value.start_at) - new Date() > 3600000 * 24) {
               value.can_cancel = ''
             } else {
               value.can_cancel = 'disabled'
             }
-            if (value.has_problem == 0) {
+            if (value.is_complete == 0 && value.has_problem == 0) {
               _this.setData({
-                hideTips: false
+                showTopTips: true
               })
               value.prb_btn = ''
             } else {
@@ -61,7 +60,6 @@ Page({
   },
 
   cancel_order: function (e) {
-    var _this = this
     var mid = e.currentTarget.dataset.mid
     wx.showModal({
       title: '提示',
@@ -69,7 +67,7 @@ Page({
       success: status => {
         if (status.confirm) {
           wx.request({
-            url: 'https://buaa.hiyouga.top/order.php',
+            url: app.globalData.domain + 'order.php',
             data: {
               type: 'cancel',
               uid: app.globalData.userId,
@@ -80,22 +78,25 @@ Page({
             dataType: 'json',
             success: res => {
               if (res.data.status == 'success') {
+                app.globalData.userInfo.all_orders = String(Number(app.globalData.userInfo.all_orders) - 1)
+                wx.setStorage({
+                  key: 'userInfo',
+                  data: app.globalData.userInfo
+                })
                 wx.showToast({
                   title: '取消成功',
                   icon: 'success',
                   duration: 1650,
                   mask: true,
                   success: res => {
-                    setTimeout(function () {
-                      _this.getList()
+                    setTimeout(_ => {
+                      this.getList()
                     }, 2000)
                   }
                 })
               }
             }
           })
-        } else if (status.cancel) {
-          //order canceled
         }
       }
     })

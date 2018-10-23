@@ -25,7 +25,7 @@ Page({
 
   getList: function () {
     wx.request({
-      url: 'https://buaa.hiyouga.top/list.php',
+      url: app.globalData.domain + 'list.php',
       data: {
         type: 'selectByDate',
         date: this.data.pagedate
@@ -53,7 +53,7 @@ Page({
   confirm: function (e) {
     var sid = e.currentTarget.dataset.idx
     wx.request({
-      url: 'https://buaa.hiyouga.top/list.php',
+      url: app.globalData.domain + 'list.php',
       data: {
         type: 'selectBySid',
         sid: sid
@@ -79,7 +79,7 @@ Page({
 
   order: function (sid) {
     wx.request({
-      url: 'https://buaa.hiyouga.top/order.php',
+      url: app.globalData.domain + 'order.php',
       data: {
         type: 'order',
         uid: app.globalData.userId,
@@ -97,6 +97,8 @@ Page({
             duration: 1650,
             mask: true,
             success: res => {
+              app.globalData.userInfo.all_orders = String(Number(app.globalData.userInfo.all_orders) + 1)
+              app.updateInfo(app.globalData.userInfo)
               setTimeout(function () {
                 wx.reLaunch({
                   url: '../apply/apply'

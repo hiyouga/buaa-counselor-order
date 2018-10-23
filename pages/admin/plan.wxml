@@ -7,7 +7,7 @@
         <view class="weui-label">姓名</view>
       </view>
       <view class="weui-cell__bd">
-        <input class="weui-input" name="name" value="{{userInfo.stu_name}}" />
+        <input class="weui-input" type="text" name="name" value="{{userInfo.stu_name}}" />
       </view>
     </view>
     <view class="weui-cell weui-cell_input weui-cell_select">
@@ -51,7 +51,7 @@
         <view class="weui-label">地点</view>
       </view>
       <view class="weui-cell__bd">
-        <input class="weui-input" name="location" placeholder="请输入地点" />
+        <input class="weui-input" type="text" name="location" placeholder="请输入地点" />
       </view>
     </view>
     <view class="weui-cell weui-cell_input">
@@ -59,7 +59,7 @@
         <view class="weui-label">人数</view>
       </view>
       <view class="weui-cell__bd">
-        <input class="weui-input" name="max_member" placeholder="最多人数" />
+        <input class="weui-input" type="number" name="max_member" placeholder="最多人数" />
       </view>
     </view>
   </view>
