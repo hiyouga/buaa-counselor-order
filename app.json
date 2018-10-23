@@ -9,7 +9,9 @@
     "pages/form/form",
     "pages/admin/admin",
     "pages/admin/plan",
-    "pages/admin/review"
+    "pages/admin/review",
+    "pages/admin/review/modify",
+    "pages/admin/review/check"
   ],
   "window":{
     "navigationBarTextStyle": "black",

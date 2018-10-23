@@ -1,2 +1,38 @@
 <!--pages/admin/review.wxml-->
-<text>pages/admin/review.wxml</text>
+<view class="page__hd">
+  <view class="page__title">管理预约</view>
+  <view class="page__desc">修改预约或签到</view>
+</view>
+<view wx:if="{{schedules[0]}}">
+  <block wx:key="" wx:for="{{schedules}}" wx:for-item="schedule">
+    <view class="weui-form-preview">
+      <view class="weui-form-preview__bd">
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">姓名</view>
+          <view class="weui-form-preview__value">{{schedule.name}}</view>
+        </view>
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">类型</view>
+          <view class="weui-form-preview__value">{{schedule.type}}</view>
+        </view>
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">开始时间</view>
+          <view class="weui-form-preview__value">{{schedule.date}} {{schedule.start_at}}</view>
+        </view>
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">地点</view>
+          <view class="weui-form-preview__value">{{schedule.location}}</view>
+        </view>
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">人数</view>
+          <view class="weui-form-preview__value">{{schedule.now_member}}/{{schedule.max_member}}</view>
+        </view>
+      </view>
+      <view class="weui-form-preview__ft">
+        <navigator url="review/modify" class="weui-form-preview__btn weui-form-preview__btn_default" hover-class="weui-form-preview__btn_active">修改信息</navigator>
+        <navigator url="review/check" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">签到</navigator>
+      </view>
+    </view>
+  </block>
+</view>
+<view class="empty" wx:else>这里空空如也</view>

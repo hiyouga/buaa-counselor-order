@@ -12,11 +12,12 @@ if (strcmp(md5(getKey($link, $_GET['uid'])), $_GET['sign'])) {
 		$sql = "INSERT INTO schedule (uid, name, type, date, start_at, duration, location, max_member) VALUES ('".$_GET['uid']."', '".$_GET['name']."', '".$_GET['ordertype']."', '".$_GET['date']."', '".$_GET['start_time']."', '".$_GET['duration']."', '".$_GET['location']."', '".$_GET['max_member']."')";
 		mysqli_query($link, $sql);
 		$data = array('status' => 'success');
-	} elseif ($_GET['type'] == 'problem') {
-		$sql = "UPDATE orderform SET has_problem = 1, problem = '"
-		. $_GET['problem_text'] . "' WHERE mid = " . $_GET['mid'];
-		mysqli_query($link, $sql);
-		$data = array('status' => 'success');
+	} elseif ($_GET['type'] == 'selectByUid') {
+		$sql = "SELECT * FROM schedule WHERE uid = " . $_GET['uid'] . " ORDER BY date DESC";
+		$res = mysqli_query($link, $sql);
+		while ($row = mysqli_fetch_assoc($res)) {
+			$data[] = $row;
+		}
 	}
 }
 mysqli_close($link);
