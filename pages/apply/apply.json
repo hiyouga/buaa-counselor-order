@@ -1,5 +1,4 @@
 {
   "navigationBarTitleText": "预约列表",
-  "enablePullDownRefresh": true,
-  "backgroundColor": "#3366FF"
+  "enablePullDownRefresh": true
 }

@@ -1,3 +1,4 @@
+<view class="weui-toptips weui-toptips_warn" wx:if="{{showTopTips}}">请将表格填写完整</view>
 <form bindsubmit="formSubmit">
   <view class="weui-cells__title">预约时间安排</view>
   <view class="weui-cells weui-cells_after-title">
@@ -6,7 +7,7 @@
         <view class="weui-label">姓名</view>
       </view>
       <view class="weui-cell__bd">
-        <input class="weui-input" value="{{userInfo.stu_name}}" />
+        <input class="weui-input" name="name" value="{{userInfo.stu_name}}" />
       </view>
     </view>
     <view class="weui-cell weui-cell_input weui-cell_select">
@@ -14,7 +15,7 @@
         <view class="weui-label">类型</view>
       </view>
       <view class="weui-cell__bd">
-        <picker bindchange="bindTypeChange" value="{{typeIndex}}" range="{{types}}">
+        <picker bindchange="bindTypeChange" name="type" value="{{typeIndex}}" range="{{types}}">
           <view class="weui-select">{{types[typeIndex]}}</view>
         </picker>
       </view>
@@ -24,7 +25,7 @@
         <view class="weui-label">日期</view>
       </view>
       <view class="weui-cell__bd align-center">
-        <picker mode="date" value="{{date}}" bindchange="bindDateChange">
+        <picker mode="date" name="date" value="{{date}}" bindchange="bindDateChange">
           <view class="weui-input">{{date}}</view>
         </picker>
       </view>
@@ -34,13 +35,13 @@
         <view class="weui-label">时间</view>
       </view>
       <view class="weui-cell__bd align-center">
-        <picker mode="time" value="{{start_time}}" bindchange="bindStartTimeChange">
+        <picker mode="time" name="start_time" value="{{start_time}}" bindchange="bindStartTimeChange">
           <view class="weui-input">{{start_time}}</view>
         </picker>
       </view>
       ~
       <view class="weui-cell__bd align-center">
-        <picker mode="time" value="{{end_time}}" bindchange="bindEndTimeChange">
+        <picker mode="time" name="end_time" value="{{end_time}}" start="{{start_time}}" bindchange="bindEndTimeChange">
           <view class="weui-input">{{end_time}}</view>
         </picker>
       </view>
@@ -50,7 +51,7 @@
         <view class="weui-label">地点</view>
       </view>
       <view class="weui-cell__bd">
-        <input class="weui-input" placeholder="请输入地点" />
+        <input class="weui-input" name="location" placeholder="请输入地点" />
       </view>
     </view>
     <view class="weui-cell weui-cell_input">
@@ -58,7 +59,7 @@
         <view class="weui-label">人数</view>
       </view>
       <view class="weui-cell__bd">
-        <input class="weui-input" placeholder="最多人数" />
+        <input class="weui-input" name="max_member" placeholder="最多人数" />
       </view>
     </view>
   </view>
