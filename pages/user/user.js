@@ -37,7 +37,7 @@ Page({
       wx.request({
         url: app.globalData.domain + 'user.php',
         data: {
-          type: 'updateReal',
+          source: 'updateReal',
           uid: app.globalData.userId,
           class_id: this.data.userInfo.temp_class_id,
           stu_id: this.data.userInfo.temp_stu_id,

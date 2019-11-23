@@ -33,8 +33,8 @@ Page({
     wx.request({
       url: app.globalData.domain + 'user.php',
       data: {
-        type: 'checkReal',
-        userid: userid,
+        source: 'checkReal',
+        uid: userid,
       },
       method: 'GET',
       dataType: 'json',

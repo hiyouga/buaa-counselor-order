@@ -1,40 +1,47 @@
 <?php
+/*
+ * user_info table
+ */
 error_reporting(0);
 header('Content-type: application/json');
 require_once 'database.php';
 require_once 'util.php';
-if ($_GET['type'] == 'getUserId') {
-	$openid = $_GET['openid'];
-	$data = getUserInfo($link, $openid, 0);
-} elseif ($_GET['type'] == 'updateTime') {
-	$mysqltime = date('Y-m-d H:i:s', time());
-	$sql = "UPDATE user_info SET lastest_login = '$mysqltime' WHERE uid = " . $_GET['userid'];
-	mysqli_query($link, $sql);
-	$data = array('status' => 'success');
-} elseif ($_GET['type'] == 'checkReal') {
-	$sql = "SELECT is_realname FROM user_info WHERE uid = " . $_GET['userid'];
-	$res = mysqli_query($link, $sql);
-	$data = mysqli_fetch_assoc($res);
-	mysqli_free_result($res);
-} elseif ($_GET['type'] == 'updateReal') {
-	//if (strcmp(md5(getKey($link, $_GET['uid']) . time()), $_GET['sign'])) {
-	if (strcmp(md5(getKey($link, $_GET['uid'])), $_GET['sign'])) {
-		$data = array('status' => 'denied');
-	} else {
-		$sql = "UPDATE user_info SET is_realname = 1, class_id = '"
-		. $_GET['class_id'] . "', stu_id = '"
-		. $_GET['stu_id'] . "', stu_name = '"
-		. $_GET['stu_name'] . "' WHERE uid = " . $_GET['uid'];
+$data = array();
+switch ($_GET['source']) {
+	case 'getUserId':
+		$openid = $_GET['openid'];
+		$data = getUserInfo($link, $openid, 0);
+		break;
+	case 'updateTime':
+		$mysqltime = date('Y-m-d H:i:s', time());
+		$sql = "UPDATE user_info SET lastest_login = '$mysqltime' WHERE uid = " . $_GET['uid'];
 		mysqli_query($link, $sql);
 		$data = array('status' => 'success');
-	}
-} elseif ($_GET['type'] == 'getReal') {
-	$sql = "SELECT is_realname, is_admin, class_id, stu_id, stu_name, completed_orders, all_orders FROM user_info WHERE uid = " . $_GET['userid'];
-	$res = mysqli_query($link, $sql);
-	$data = mysqli_fetch_assoc($res);
-	mysqli_free_result($res);
-} else {
-	$data['error'] = 'No input data!';
+		break;
+	case 'checkReal':
+		$sql = "SELECT is_realname FROM user_info WHERE uid = " . $_GET['uid'];
+		$res = mysqli_query($link, $sql);
+		$data = mysqli_fetch_assoc($res);
+		mysqli_free_result($res);
+		break;
+	case 'getReal':
+		$sql = "SELECT is_realname, is_admin, class_id, stu_id, stu_name, completed_orders, all_orders FROM user_info WHERE uid = " . $_GET['uid'];
+		$res = mysqli_query($link, $sql);
+		$data = mysqli_fetch_assoc($res);
+		mysqli_free_result($res);
+		break;
+	case 'updateReal':
+		if (verify($link, $_GET['uid'], $_GET['sign'])) {
+			$sql = "UPDATE user_info SET is_realname = 1, class_id = '" . $_GET['class_id'] . "', stu_id = '" . $_GET['stu_id'] . "', stu_name = '" . $_GET['stu_name'] . "' WHERE uid = " . $_GET['uid'];
+			mysqli_query($link, $sql);
+			$data = array('status' => 'success');
+		} else {
+			$data = array('status' => 'denied');
+		}
+		break;
+	default:
+		$data = array('status' => 'undefined');
+		break;
 }
 mysqli_close($link);
 echo json_encode($data);

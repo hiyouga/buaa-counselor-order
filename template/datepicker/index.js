@@ -1,3 +1,5 @@
+const app = getApp() // 获取app实例
+
 /**
 * 左滑
 * @param {object} e 事件对象
@@ -80,8 +82,9 @@ const conf = {
 			selectYear = selectedDay[ 0 ].year;
 		}
     wx.request({
-      url: 'https://buaa.hiyouga.top/date.php',
+      url: app.globalData.domain + 'schedule.php',
       data: {
+        source: 'selectByMonth',
         year: year,
         month: month
       },

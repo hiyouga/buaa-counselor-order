@@ -23,9 +23,9 @@ Page({
       showTopTips: false
     })
     wx.request({
-      url: app.globalData.domain + 'list.php',
+      url: app.globalData.domain + 'order.php',
       data: {
-        type: 'selectByUid',
+        source: 'selectByUid',
         uid: app.globalData.userId
       },
       method: 'GET',
@@ -69,7 +69,7 @@ Page({
           wx.request({
             url: app.globalData.domain + 'order.php',
             data: {
-              type: 'cancel',
+              source: 'cancel',
               uid: app.globalData.userId,
               mid: mid,
               sign: app.makeSign(app.globalData.unique_key)

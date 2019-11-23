@@ -65,7 +65,7 @@ Page({
         url: app.globalData.domain + 'schedule.php',
         data: {
           uid: app.globalData.userId,
-          type: 'add',
+          source: 'addSchedule',
           name: formdata.name,
           ordertype: this.data.types[formdata.type],
           date: formdata.date,
@@ -74,7 +74,6 @@ Page({
           location: formdata.location,
           max_member: formdata.max_member,
           sign: app.makeSign(app.globalData.unique_key)
-          //sign: app.makeSign(app.globalData.unique_key + String(Date.parse(new Date()) / 1000))
         },
         method: 'GET',
         dataType: 'json',

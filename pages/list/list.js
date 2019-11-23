@@ -15,7 +15,9 @@ Page({
   },
 
   onShow: function () {
-    this.getList()
+    if (this.data.pagedate) {
+      this.getList()
+    }
   },
 
   onPullDownRefresh: function () {
@@ -25,9 +27,9 @@ Page({
 
   getList: function () {
     wx.request({
-      url: app.globalData.domain + 'list.php',
+      url: app.globalData.domain + 'schedule.php',
       data: {
-        type: 'selectByDate',
+        source: 'selectByDate',
         date: this.data.pagedate
       },
       method: 'GET',
@@ -53,9 +55,9 @@ Page({
   confirm: function (e) {
     var sid = e.currentTarget.dataset.idx
     wx.request({
-      url: app.globalData.domain + 'list.php',
+      url: app.globalData.domain + 'schedule.php',
       data: {
-        type: 'selectBySid',
+        source: 'selectBySid',
         sid: sid
       },
       method: 'GET',
@@ -68,8 +70,6 @@ Page({
           success: status => {
             if (status.confirm) {
               this.order(sid)
-            } else if (status.cancel) {
-              //order canceled
             }
           }
         })
@@ -81,11 +81,10 @@ Page({
     wx.request({
       url: app.globalData.domain + 'order.php',
       data: {
-        type: 'order',
+        source: 'order',
         uid: app.globalData.userId,
         sid: sid,
         sign: app.makeSign(app.globalData.unique_key)
-        //sign: app.makeSign(app.globalData.unique_key + String(Date.parse(new Date()) / 1000))
       },
       method: 'GET',
       dataType: 'json',

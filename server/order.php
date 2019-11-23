@@ -1,39 +1,63 @@
 <?php
+/*
+ * orderform table
+ */
 error_reporting(0);
 header('Content-type: application/json');
 require_once 'database.php';
 require_once 'util.php';
 $data = array();
-//if (strcmp(md5(getKey($link, $_GET['uid']) . time()), $_GET['sign'])) {
-if (strcmp(md5(getKey($link, $_GET['uid'])), $_GET['sign'])) {
-	$data['status'] = 'denied';
-} else {
-	if ($_GET['type'] == 'order') {
-		if (isfree($link, $_GET['sid']) && !isrepeat($link, $_GET['uid'], $_GET['sid'])) {
-			$currentTime = date('Y-m-d H:i:s', time());
-			$sql = "INSERT INTO orderform (uid, sid, launch_time) VALUES ('".$_GET['uid']."', '".$_GET['sid']."', '$currentTime')";
+switch ($_GET['source']) {
+	case 'order':
+		if (verify($link, $_GET['uid'], $_GET['sign'])) {
+			if (isfree($link, $_GET['sid']) && !isrepeat($link, $_GET['uid'], $_GET['sid'])) {
+				$currentTime = date('Y-m-d H:i:s', time());
+				$sql = "INSERT INTO orderform (uid, sid, launch_time) VALUES ('".$_GET['uid']."', '".$_GET['sid']."', '$currentTime')";
+				mysqli_query($link, $sql);
+				add_member($link, $_GET['sid'], $_GET['uid']);
+				$data['status'] = 'success';
+			} else {
+				$data['status'] = 'failed';
+			}
+		} else {
+			$data = array('status' => 'denied');
+		}
+		break;
+	case 'cancel':
+		if (verify($link, $_GET['uid'], $_GET['sign'])) {
+			$sql = "SELECT sid FROM orderform WHERE mid = " . $_GET['mid'];
+			$res = mysqli_query($link, $sql);
+			$sid_num = mysqli_fetch_assoc($res);
+			mysqli_free_result($res);
+			$sql = "DELETE FROM orderform WHERE mid = " . $_GET['mid'];
 			mysqli_query($link, $sql);
-			add_member($link, $_GET['sid'], $_GET['uid']);
+			dec_member($link, $sid_num['sid'], $_GET['uid']);
 			$data['status'] = 'success';
 		} else {
-			$data['status'] = 'failed';
+			$data = array('status' => 'denied');
 		}
-	} elseif ($_GET['type'] == 'cancel') {
-		$sql = "SELECT sid FROM orderform WHERE mid = " . $_GET['mid'];
+		break;
+	case 'problem':
+		if (verify($link, $_GET['uid'], $_GET['sign'])) {
+			$sql = "UPDATE orderform SET has_problem = 1, problem = '" . $_GET['problem_text'] . "' WHERE mid = " . $_GET['mid'];
+			mysqli_query($link, $sql);
+			$data = array('status' => 'success');
+		} else {
+			$data = array('status' => 'denied');
+		}
+		break;
+	case 'selectByUid':
+		$sql = "SELECT mid, sid, is_complete, has_problem, problem FROM orderform WHERE uid = " . $_GET['uid'] . " ORDER BY launch_time DESC";
 		$res = mysqli_query($link, $sql);
-		$sid_num = mysqli_fetch_assoc($res);
-		mysqli_free_result($res);
-		$sql = "DELETE FROM orderform WHERE mid = " . $_GET['mid'];
-		mysqli_query($link, $sql);
-		dec_member($link, $sid_num['sid'], $_GET['uid']);
-		$data['status'] = 'success';
-	} elseif ($_GET['type'] == 'problem') {
-		$sql = "UPDATE orderform SET has_problem = 1, problem = '"
-		. $_GET['problem_text'] . "' WHERE mid = " . $_GET['mid'];
-		mysqli_query($link, $sql);
-		$data = array('status' => 'success');
-	}
+		while ($row = mysqli_fetch_assoc($res)) {
+			$data[] = getDetail($link, $row);
+		}
+		break;
+	default:
+		$data = array('status' => 'undefined');
+		break;
 }
+
 mysqli_close($link);
 echo json_encode($data);
 exit;
@@ -77,4 +101,12 @@ function dec_member ($link, $sid, $uid) {
 	$sql = "UPDATE user_info SET all_orders = all_orders - 1 WHERE uid = " . $uid;
 	mysqli_query($link, $sql);
 	return true;
+}
+
+function getDetail ($link, $arr) {
+	$sql = "SELECT * FROM schedule WHERE sid = " . $arr['sid'];
+	$res = mysqli_query($link, $sql);
+	$row = mysqli_fetch_assoc($res);
+	mysqli_free_result($res);
+	return array_merge($arr, $row);
 }

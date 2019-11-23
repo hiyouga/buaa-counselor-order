@@ -31,7 +31,7 @@ Page({
           wx.request({
             url: app.globalData.domain + 'order.php',
             data: {
-              type: 'problem',
+              source: 'problem',
               uid: app.globalData.userId,
               mid: this.data.mid,
               problem_text: text,

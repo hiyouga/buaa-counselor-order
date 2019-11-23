@@ -25,10 +25,10 @@ App({
           this.userIdReadyCallback(this.globalData.userId)
         }
         wx.request({
-          url: 'https://buaa.hiyouga.top/user.php',
+          url: this.globalData.domain + 'user.php',
           data: {
-            type: 'updateTime',
-            userid: this.globalData.userId,
+            source: 'updateTime',
+            uid: this.globalData.userId,
           },
           method: 'GET',
           dataType: 'json',
@@ -36,7 +36,7 @@ App({
             if (cdata.data.status != 'success') {
               console.log('Update Time failed!')
             } else {
-              console.log('Time Updated')
+              //console.log('Time Updated')
             }
           }
         })
@@ -52,7 +52,7 @@ App({
       success: res => {
         if (res.code) {
           wx.request({
-            url: 'https://buaa.hiyouga.top/login.php',
+            url: this.globalData.domain + 'login.php',
             data: {
               code: res.code
             },
@@ -79,9 +79,9 @@ App({
   },
   getUserId: function (openid) {
     wx.request({
-      url: 'https://buaa.hiyouga.top/user.php',
+      url: this.globalData.domain + 'user.php',
       data: {
-        type: 'getUserId',
+        source: 'getUserId',
         openid: openid
       },
       method: 'GET',
@@ -104,12 +104,12 @@ App({
       }
     })
   },
-  getUserInfo: function (userid) {
+  getUserInfo: function (userId) {
     wx.request({
-      url: 'https://buaa.hiyouga.top/user.php',
+      url: this.globalData.domain + 'user.php',
       data: {
-        type: 'getReal',
-        userid: userid
+        source: 'getReal',
+        uid: userId
       },
       method: 'GET',
       dataType: 'json',
