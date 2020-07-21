@@ -79,10 +79,7 @@ Page({
             success: res => {
               if (res.data.status == 'success') {
                 app.globalData.userInfo.all_orders = String(Number(app.globalData.userInfo.all_orders) - 1)
-                wx.setStorage({
-                  key: 'userInfo',
-                  data: app.globalData.userInfo
-                })
+                app.updateInfo(app.globalData.userInfo)
                 wx.showToast({
                   title: '取消成功',
                   icon: 'success',
@@ -90,7 +87,9 @@ Page({
                   mask: true,
                   success: res => {
                     setTimeout(_ => {
-                      this.getList()
+                      wx.reLaunch({
+                        url: '../apply/apply'
+                      })
                     }, 2000)
                   }
                 })

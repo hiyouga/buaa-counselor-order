@@ -1,5 +1,5 @@
 {
-  "pages":[
+  "pages": [
     "pages/index/index",
     "pages/order/order",
     "pages/list/list",
@@ -13,7 +13,7 @@
     "pages/admin/review/modify",
     "pages/admin/review/check"
   ],
-  "window":{
+  "window": {
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "汇融有约",
     "navigationBarBackgroundColor": "#f8f8f8",
@@ -43,5 +43,6 @@
         "text": "用户"
       }
     ]
-  }
+  },
+  "sitemapLocation": "sitemap.json"
 }
